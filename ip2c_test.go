@@ -1,4 +1,3 @@
-//nolint:paralleltest
 package ip2c_test
 
 import (
@@ -12,7 +11,8 @@ import (
 )
 
 func TestCheck(t *testing.T) {
-	zerror := new(zerr.ZError)
+	t.Parallel()
+
 	api := ip2c.NewWithTimeout(5 * time.Second)
 
 	resp, err := api.Check("94.238.20.184")
@@ -39,7 +39,15 @@ func TestCheck(t *testing.T) {
 	assert.Equal(t, "IN", resp.CountryCode)
 	assert.Equal(t, "India", resp.CountryName)
 
-	resp, err = api.Check("127.0.0.1")
+}
+
+func TestCheckError(t *testing.T) {
+	t.Parallel()
+
+	zerror := new(zerr.ZError)
+	api := ip2c.New()
+
+	resp, err := api.Check("127.0.0.1")
 	assert.Error(t, err)
 	assert.Equal(t, (*ip2c.CheckResponseAPI)(nil), resp)
 	assert.ErrorAs(t, err, &zerror)
