@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/alex-cos/ip2c"
-	"github.com/alex-cos/zerr"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -38,31 +37,25 @@ func TestCheck(t *testing.T) {
 	}
 	assert.Equal(t, "IN", resp.CountryCode)
 	assert.Equal(t, "India", resp.CountryName)
-
 }
 
 func TestCheckError(t *testing.T) {
 	t.Parallel()
 
-	zerror := new(zerr.ZError)
 	api := ip2c.New()
 
 	resp, err := api.Check("127.0.0.1")
 	assert.Error(t, err)
 	assert.Equal(t, (*ip2c.CheckResponseAPI)(nil), resp)
-	assert.ErrorAs(t, err, &zerror)
-	assert.Equal(t, int64(6110), zerror.Code())
+	assert.ErrorContains(t, err, "can't check localhost ipaddress")
 
 	resp, err = api.Check("::1")
 	assert.Error(t, err)
 	assert.Equal(t, (*ip2c.CheckResponseAPI)(nil), resp)
-	assert.ErrorAs(t, err, &zerror)
-	assert.Equal(t, int64(6110), zerror.Code())
+	assert.ErrorContains(t, err, "can't check localhost ipaddress")
 
 	resp, err = api.Check("abcd")
 	assert.Error(t, err)
 	assert.Equal(t, (*ip2c.CheckResponseAPI)(nil), resp)
-	assert.ErrorAs(t, err, &zerror)
-	assert.Equal(t, int64(6108), zerror.Code())
-	assert.Contains(t, zerror.Message(), "unexpected error")
+	assert.ErrorContains(t, err, "unexpected error")
 }

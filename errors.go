@@ -1,22 +1,20 @@
 package ip2c
 
 import (
+	"errors"
 	"fmt"
-
-	"github.com/alex-cos/zerr"
 )
 
 var (
-	ErrBadFormat = zerr.NewSC(zerr.Error, 6107, "bad returned formatted string")
+	ErrBadFormat = errors.New("bad returned formatted string")
 
-	ErrUnexpected = zerr.NewSC(zerr.Error, 6108, "unexpected error")
+	ErrUnexpected = errors.New("unexpected error")
 
-	ErrNotFound = zerr.NewSC(zerr.Error, 6109, "IP Address was not found")
+	ErrNotFound = errors.New("IP Address was not found")
 
-	ErrLocalhost = zerr.NewSC(zerr.Error, 6110, "can't check localhost ipaddress")
+	ErrLocalhost = errors.New("can't check localhost ipaddress")
 )
 
 func ErrDoRequest(err error) error {
-	msg := fmt.Sprintf("failed to execute HTTP request: %v", err)
-	return zerr.NewSC(zerr.Error, 6102, msg)
+	return fmt.Errorf("failed to execute HTTP request: %w", err)
 }

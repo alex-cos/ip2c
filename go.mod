@@ -4,7 +4,6 @@ go 1.22.0
 
 require (
 	github.com/alex-cos/restc v1.0.4
-	github.com/alex-cos/zerr v0.1.0
 	github.com/stretchr/testify v1.10.0
 )
 
