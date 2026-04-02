@@ -1,6 +1,7 @@
 package ip2c
 
 import (
+	"net"
 	"net/http"
 	"strings"
 	"time"
@@ -10,7 +11,7 @@ import (
 
 const (
 	// APIURL is the official ip2c API Endpoint.
-	APIURL = "http://ip2c.org"
+	APIURL = "https://ip2c.org"
 )
 
 // ----------------------------------------------------------------------------
@@ -76,5 +77,6 @@ func (api *IP2CAPI) Check(ipAddress string) (*CheckResponseAPI, error) {
 // Unexported functions
 
 func isLocalHost(ip string) bool {
-	return (ip == "127.0.0.1") || (ip == "::1")
+	parsed := net.ParseIP(ip)
+	return parsed != nil && parsed.IsLoopback()
 }
