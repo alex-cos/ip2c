@@ -13,6 +13,8 @@ var (
 	ErrNotFound = errors.New("IP Address was not found")
 
 	ErrLocalhost = errors.New("can't check localhost ipaddress")
+
+	ErrInvalidIP = errors.New("invalid IP address")
 )
 
 func ErrDoRequest(err error) error {

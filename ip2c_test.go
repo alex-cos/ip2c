@@ -57,5 +57,5 @@ func TestCheckError(t *testing.T) {
 	resp, err = api.Check("abcd")
 	assert.Error(t, err)
 	assert.Equal(t, (*ip2c.CheckResponseAPI)(nil), resp)
-	assert.ErrorContains(t, err, "unexpected error")
+	assert.ErrorContains(t, err, "invalid IP address")
 }

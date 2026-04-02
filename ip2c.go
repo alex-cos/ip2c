@@ -45,6 +45,10 @@ func NewWithClientTimeout(
 }
 
 func (api *IP2CAPI) Check(ipAddress string) (*CheckResponseAPI, error) {
+	if net.ParseIP(ipAddress) == nil {
+		return nil, ErrInvalidIP
+	}
+
 	if isLocalHost(ipAddress) {
 		return nil, ErrLocalhost
 	}
