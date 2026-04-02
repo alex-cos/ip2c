@@ -1,6 +1,7 @@
 package ip2c
 
 import (
+	"context"
 	"net"
 	"net/http"
 	"strings"
@@ -45,6 +46,10 @@ func NewWithClientTimeout(
 }
 
 func (api *IP2CAPI) Check(ipAddress string) (*CheckResponseAPI, error) {
+	return api.CheckWithContext(context.Background(), ipAddress)
+}
+
+func (api *IP2CAPI) CheckWithContext(ctx context.Context, ipAddress string) (*CheckResponseAPI, error) {
 	if net.ParseIP(ipAddress) == nil {
 		return nil, ErrInvalidIP
 	}
@@ -54,7 +59,7 @@ func (api *IP2CAPI) Check(ipAddress string) (*CheckResponseAPI, error) {
 	}
 
 	req := restc.Get(ipAddress)
-	resp, err := api.client.Execute(req)
+	resp, err := api.client.ExecuteWithContext(ctx, req)
 	if err != nil {
 		return nil, ErrDoRequest(err)
 	}
