@@ -40,8 +40,14 @@ func NewWithClientTimeout(
 	httpClient *http.Client,
 	timeout time.Duration,
 ) IP2C {
+	client := restc.NewWithClientTimeout(APIURL, httpClient, timeout)
+	client.SetRedirectPolicy(restc.NoRedirect)
+	client.SetRetryCount(1)
+	client.SetRetryWaitTime(200 * time.Millisecond)
+	client.SetRetryMaxWaitTime(time.Second)
+
 	return &IP2CAPI{
-		client: restc.NewWithClientTimeout(APIURL, httpClient, timeout),
+		client: client,
 	}
 }
 
