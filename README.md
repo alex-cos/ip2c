@@ -1,5 +1,12 @@
 # IP2C Client Module For Go
 
+[![Go Version](https://img.shields.io/badge/Go-1.25%2B-blue)](https://go.dev/)
+[![Test Status](https://github.com/alex-cos/ip2c/actions/workflows/test.yml/badge.svg)](https://github.com/alex-cos/ip2c/actions/workflows/test.yml)
+[![Lint Status](https://github.com/alex-cos/ip2c/actions/workflows/lint.yml/badge.svg)](https://github.com/alex-cos/ip2c/actions/workflows/lint.yml)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/alex-cos/ip2c)](https://goreportcard.com/report/github.com/alex-cos/ip2c)
+
+
 A lightweight Go client for the **ip2c.org** IP geolocation API. This module allows you to quickly resolve an IPv4 or IPv6 address to its corresponding country code and country name. It supports customizable HTTP clients, timeouts, and context-based cancellation for full control over network requests.
 
 Official Documentation is here:
